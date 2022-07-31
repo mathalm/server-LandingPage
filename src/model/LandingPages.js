@@ -57,10 +57,15 @@ module.exports = class LandingPage {
     let dados = this.landingPages.findAll();
     return dados;
   }
+  buscarDadosPorId(idLandingPage) {
+    const verificarSeIdExiste =  this.landingPages.findByPk(idLandingPage);
+    return verificarSeIdExiste;
+  }
 
   criarLandingPage(dados) {
     let identificador = dados.nome.replace(/ /g, "_");
     let quantidadeDeLeadsConvertidos = 0;
+    let status = dados.status;
     this.landingPages.removeAttribute('id');
     const insert = this.landingPages.build({
       nome: dados.nome,
@@ -71,10 +76,12 @@ module.exports = class LandingPage {
       updatedAt: Sequelize.fn("getdate"),
     });
     insert.save();
+    
   }
 
   atualizarLandingPage(dados, idLandingPage){
     this.landingPages.update(dados,{where: { id : idLandingPage} });
+    this.landingPages.update({updatedAt: Sequelize.fn("getdate")},{where: { id : idLandingPage} });
   }
   deletarLandingPage(idLandingPage){
     this.landingPages.update({situacao: 2},{where: { id : idLandingPage} });

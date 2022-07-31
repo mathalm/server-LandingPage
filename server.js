@@ -1,5 +1,6 @@
 const Sequelize = require("sequelize");
 const express = require("express");
+var cors = require('cors')
 const app = express();
 
 const bancoDeDados = new Sequelize("LandingPageDB", "testelp06", "Senhaforte06.", {
@@ -16,7 +17,7 @@ const chamada = async () => {
 };
 chamada();
 
-app.use(express.json());
+app.use(cors())
 bancoDeDados.sync();
 const router = express.Router();
 //Rotas
