@@ -31,12 +31,16 @@ module.exports = class LandingPage {
         identificador: {
           type: Sequelize.DataTypes.CHAR,
         },
+        //1 ativado
+        //2 desativado
         status: {
           type: Sequelize.DataTypes.INTEGER,
         },
         quantidadeDeLeadsConvertidos: {
           type: Sequelize.DataTypes.INTEGER,
         },
+        //1 vigente
+        //2 excluído
         situacao: {
           type: Sequelize.DataTypes.INTEGER,
         },
@@ -54,7 +58,12 @@ module.exports = class LandingPage {
     );
   }
   get dados() {
-    let dados = this.landingPages.findAll();
+    let dados = this.landingPages.findAll({
+      where: {
+        situacao: 1
+      },
+      order: [['createdAt', 'DESC']]
+    });
     return dados;
   }
   buscarDadosPorId(idLandingPage) {
@@ -72,6 +81,7 @@ module.exports = class LandingPage {
       identificador: identificador,
       status: dados.status,
       quantidadeDeLeadsConvertidos: quantidadeDeLeadsConvertidos,
+      situacao: 1,
       createdAt: Sequelize.fn("getdate"),
       updatedAt: Sequelize.fn("getdate"),
     });

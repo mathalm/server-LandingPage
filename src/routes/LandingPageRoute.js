@@ -9,5 +9,5 @@ const landingPage = require('../controller/LandingPagesController');
 router.get('/', landingPage.get);
 router.post('/adicionar',jsonParser, landingPage.post);
 router.put('/atualizar/:id',jsonParser, landingPage.put);
-router.delete('/deletar/:id', landingPage.delete);
+router.delete('/deletar/:id',jsonParser, landingPage.delete);
 module.exports = router;

@@ -17,7 +17,8 @@ class LandingPagesController {
     return this._dados;
   }
   inserirLandingPage(dados) {
-    if ("nome" in dados && "status" in dados && "situacao" in dados) {
+    
+    if ("nome" in dados && "status" in dados) {
       this._landingPage = new LandingPage();
       this._landingPage.criarLandingPage(dados);
       return {
@@ -26,14 +27,14 @@ class LandingPagesController {
     } else {
       return {
         error: {
-          mensagem: "São obrigatórios os campos nome, status e situacao.",
+          mensagem: "São obrigatórios os campos nome e status.",
         },
       };
     }
   }
   atualizarLandingPage(dados, idLandingPage) {
     console.log('atualizar com: ' + dados);
-    if ("nome" in dados || "status" in dados || "situacao" in dados) {
+    if ("nome" in dados || "status" in dados) {
       const teste = this._landingPage.atualizarLandingPage(
         dados,
         idLandingPage
